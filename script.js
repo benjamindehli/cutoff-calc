@@ -5,6 +5,11 @@ var app = new Vue({
 			value: 100,
 			multiplier: 1000
 		},
+		resistorType: 'fixed',
+		potentiometerType: 'lin',
+		potentiometer: {
+			position: 100
+		},
 		capacitor: {
 			value: 47,
 			multiplier: 0.000000001,
@@ -19,12 +24,21 @@ var app = new Vue({
 		{name: "p", value: 0.000000000001}
 		]
 	},
+	
 	computed: {
 		capacitorValue: function () {
 			return this.capacitor.value * this.capacitor.multiplier;
 		},
 		resistorValue: function () {
-			return this.resistor.value * this.resistor.multiplier;
+			if (this.resistorType == 'fixed'){
+				return this.resistor.value * this.resistor.multiplier;
+			}
+			else if (this.potentiometerType == 'lin'){
+				return this.resistor.value * (this.potentiometer.position/100) * this.resistor.multiplier;
+			}else if(this.potentiometerType == 'log'){
+				var logValue = this.potentiometer.position > 0 ? Math.pow(this.resistor.value, this.potentiometer.position/100) : 0;
+				return logValue * this.resistor.multiplier;
+			}
 		},
 		cutoff: function () {
 			var cutoff = 1 / (2*3.1415*this.resistorValue*this.capacitorValue);
@@ -41,6 +55,19 @@ var app = new Vue({
 				cutoff = cutoff + " ";
 			}
 			return cutoff;
+		}
+	},
+	methods: {
+		getSuffixValue(value){
+			if (value > 999999){
+				return Math.round(value / 1000000) + " M";
+			}
+			else if (value > 999){
+				return Math.round(value / 1000) + " K";
+			}
+			else {
+				return Math.round(value);
+			}
 		}
 	}
 });
