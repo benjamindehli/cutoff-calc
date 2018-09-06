@@ -4,15 +4,27 @@
 body {
 	font-family: arial, sans-serif;
 	font-size: 30px;
+	background-color: #f9f9f9;
 }
 div {
 	margin-top: 16px;
 }
+.flex{
+	display: flex;
+}
+.flex > div {
+	padding: 0 16px 16px;
+	margin: 0 12px;
+	background-color: #fff;
+	-webkit-box-shadow: 0 1px 3px 0 rgba(0,0,0,.37);
+    -moz-box-shadow: 0 1px 3px 0 rgba(0,0,0,.37);
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.37);
+    border-radius: 2px;
+}
 label {
 	display: inline-block;
-	width: 150px;
 }
-input {
+input[type='number'] {
 	width: calc(100% - 80px);
 	font-size: 30px;
 	height: 41px;
@@ -32,8 +44,8 @@ select {
 }
 #app {
 	padding: 8px 16px;
-	max-width: 400px;
 	margin: auto;
+	max-width: 700px;
 }
 .result {
 	text-align: center;
