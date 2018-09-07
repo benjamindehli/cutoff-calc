@@ -16,34 +16,6 @@ body {
 		margin: auto;
 	}
 }
-nav {
-	background-color: #0a8dea;
-	-webkit-box-shadow: 0 2px 5px rgba(0,0,0,.26);
-	-moz-box-shadow: 0 2px 5px rgba(0,0,0,.26);
-	box-shadow: 0 2px 5px rgba(0,0,0,.26);
-}
-nav > ul {
-	max-width: 850px;
-	display: flex;
-	margin: 0 auto;
-	padding: 0;
-	list-style: none;
-}
-nav > ul li {
-	width: 100%;
-	text-align: center;
-	color: #fff;
-	line-height: 1.75em;
-	cursor: pointer;
-	border-bottom: 4px solid transparent;
-}
-nav > ul li:hover{
-	background-color: #007dda;
-	border-bottom: 4px solid #fff;
-}
-nav > ul li.active {
-	border-bottom: 4px solid #fff;
-}
 .flex{
 	display: flex;
 }

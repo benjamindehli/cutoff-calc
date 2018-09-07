@@ -7,12 +7,6 @@
 </head>
 <body>
 	<div id="app">
-		<!--<nav>
-			<ul>
-				<li>LP-filter</li>
-				<li>HP-filter</li>
-			</ul>
-		</nav>-->
 		<div class="container">
 
 			<div class="boxes">
@@ -55,7 +49,6 @@
 					<div><span>Maximum: </span>{{ getSuffixValue(cutoff.minimum) }}Hz</div>
 				</div>
 				<input id="potentiometer" type="range" min="0" max="100" v-model="potentiometer.position" class="reversed" />
-				<!--{{ getSuffixValue(potentiometerValue) }}Ω-->
 			</div>
 		</div>
 

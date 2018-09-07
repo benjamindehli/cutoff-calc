@@ -49,17 +49,6 @@ var app = new Vue({
 				minimum: minimumCutoff,
 				maximum: maximumCutoff
 			};
-			/*if (cutoff > 999999){
-				cutoff = cutoff / 1000000;
-				cutoff = cutoff + " M"
-			}
-			else if (cutoff > 999){
-				cutoff = cutoff / 1000;
-				cutoff = cutoff + " K"
-			}
-			else {
-				cutoff = cutoff + " ";
-			}*/
 			return cutoff;
 		}
 	},
