@@ -13,7 +13,7 @@
 				<div class="offsetResistor">
 					<label for="offsetResistor">Offset resistor:</label>
 					<div class="flex">
-						<input id="offsetResistor" type="number" v-model="offsetResistor.value"/>
+						<input id="offsetResistor" type="number" min="0" v-model="offsetResistor.value"/>
 						<select v-model:number="offsetResistor.multiplier">
 							<option v-for="multiplier in multipliers" v-bind:value="multiplier.value">{{ multiplier.name }}Ω</option>
 						</select>
@@ -22,7 +22,7 @@
 				<div class="potentiometer">
 					<label for="potentiometer">Potentiometer:</label>
 					<div class="flex">
-						<input id="potentiometer" type="number" v-model="potentiometer.value"/>
+						<input id="potentiometer" type="number" min="0" v-model="potentiometer.value"/>
 						<select v-model:number="potentiometer.multiplier">
 							<option v-for="multiplier in multipliers" v-bind:value="multiplier.value">{{ multiplier.name }}Ω</option>
 						</select>
@@ -35,7 +35,7 @@
 				<div class="capacitor">
 					<label for="capacitor">Capacitor:</label>
 					<div class="flex">
-						<input id="capacitor" type="number" v-model="capacitor.value"/>
+						<input id="capacitor" type="number" min="0" v-model="capacitor.value"/>
 						<select v-model:number="capacitor.multiplier">
 							<option v-for="multiplier in multipliers" v-bind:value="multiplier.value">{{ multiplier.name }}F</option>
 						</select>
