@@ -3,51 +3,100 @@
 }
 body {
 	font-family: arial, sans-serif;
-	font-size: 30px;
+	font-size: 22px;
 	background-color: #f9f9f9;
+	margin: 0;
 }
-div {
-	margin-top: 16px;
+.container {
+	margin: auto;
+}
+@media only screen and (min-width: 850px){
+	.container {
+		max-width: 850px;
+		margin: auto;
+	}
+}
+nav {
+	background-color: #0a8dea;
+	-webkit-box-shadow: 0 2px 5px rgba(0,0,0,.26);
+	-moz-box-shadow: 0 2px 5px rgba(0,0,0,.26);
+	box-shadow: 0 2px 5px rgba(0,0,0,.26);
+}
+nav > ul {
+	max-width: 850px;
+	display: flex;
+	margin: 0 auto;
+	padding: 0;
+	list-style: none;
+}
+nav > ul li {
+	width: 100%;
+	text-align: center;
+	color: #fff;
+	line-height: 1.75em;
+	cursor: pointer;
+	border-bottom: 4px solid transparent;
+}
+nav > ul li:hover{
+	background-color: #007dda;
+	border-bottom: 4px solid #fff;
+}
+nav > ul li.active {
+	border-bottom: 4px solid #fff;
 }
 .flex{
 	display: flex;
 }
-.flex > div {
-	padding: 0 16px 16px;
-	margin: 0 12px;
+.boxes{
+}
+.boxes > div {
+	padding: 16px;
+	width: 100%;
+	margin: 8px;
 	background-color: #fff;
 	-webkit-box-shadow: 0 1px 3px 0 rgba(0,0,0,.37);
-    -moz-box-shadow: 0 1px 3px 0 rgba(0,0,0,.37);
-    box-shadow: 0 1px 3px 0 rgba(0,0,0,.37);
-    border-radius: 2px;
+	-moz-box-shadow: 0 1px 3px 0 rgba(0,0,0,.37);
+	box-shadow: 0 1px 3px 0 rgba(0,0,0,.37);
+	border-radius: 2px;
 }
+
 label {
 	display: inline-block;
 }
 input[type='number'] {
-	width: calc(100% - 80px);
-	font-size: 30px;
-	height: 41px;
+	max-width: 180px;
+	font-size: 25px;
+	height: 32px;
 	border: 1px solid #aaa;
 	border-radius: 4px;
 	font-family: arial, sans-serif;
 	padding: 0 6px;
 }
+input[type='range']{
+
+}
+input[type='range'].reversed{
+	direction: rtl;
+}
 select {
-	width: 80px;
-	font-size: 30px;
-	height: 41px;
+	font-size: 25px;
+	height: 32px;
 	border-radius: 4px;
 	font-family: arial, sans-serif;
 	float: right;
 	border: 1px solid #aaa;
 }
 #app {
-	padding: 8px 16px;
 	margin: auto;
-	max-width: 700px;
 }
 .result {
 	text-align: center;
 	font-size: 40px;
+}
+.result .flex > div {
+	width: 100%;
+}
+.result .flex > div span{
+	display: block;
+	font-size: 18px;
 }

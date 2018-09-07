@@ -1,17 +1,18 @@
 var app = new Vue({
 	el: '#app',
 	data: {
-		resistor: {
-			value: 100,
+		offsetResistor: {
+			value: 6.8,
 			multiplier: 1000
 		},
-		resistorType: 'fixed',
-		potentiometerType: 'lin',
 		potentiometer: {
-			position: 100
+			value: 960,
+			position: 100,
+			multiplier: 1000
 		},
+		potentiometerType: 'lin',
 		capacitor: {
-			value: 47,
+			value: 15,
 			multiplier: 0.000000001,
 		},
 		multipliers: [
@@ -29,21 +30,26 @@ var app = new Vue({
 		capacitorValue: function () {
 			return this.capacitor.value * this.capacitor.multiplier;
 		},
-		resistorValue: function () {
-			if (this.resistorType == 'fixed'){
-				return this.resistor.value * this.resistor.multiplier;
-			}
-			else if (this.potentiometerType == 'lin'){
-				return this.resistor.value * (this.potentiometer.position/100) * this.resistor.multiplier;
-			}else if(this.potentiometerType == 'log'){
-				var logValue = this.potentiometer.position > 0 ? Math.pow(this.resistor.value, this.potentiometer.position/100) : 0;
-				return logValue * this.resistor.multiplier;
-			}
+		offsetResistorValue: function () {
+			return this.offsetResistor.value * this.offsetResistor.multiplier;
+		},
+		potentiometerValue: function () {
+			return this.getPotentiometerValue();
+			
 		},
 		cutoff: function () {
-			var cutoff = 1 / (2*3.1415*this.resistorValue*this.capacitorValue);
-			cutoff = Math.round(cutoff);
-			if (cutoff > 999999){
+			var currentResistanceValue = this.getPotentiometerValue() + this.offsetResistorValue;
+			var minimumResistanceValue = this.getPotentiometerValue(0) + this.offsetResistorValue;
+			var maximumResistanceValue = this.getPotentiometerValue(100) + this.offsetResistorValue;
+			var currentCutoff = 1 / (2*3.1415*currentResistanceValue*this.capacitorValue);
+			var minimumCutoff = 1 / (2*3.1415*minimumResistanceValue*this.capacitorValue);
+			var maximumCutoff = 1 / (2*3.1415*maximumResistanceValue*this.capacitorValue);
+			cutoff = {
+				current: currentCutoff,
+				minimum: minimumCutoff,
+				maximum: maximumCutoff
+			};
+			/*if (cutoff > 999999){
 				cutoff = cutoff / 1000000;
 				cutoff = cutoff + " M"
 			}
@@ -53,17 +59,26 @@ var app = new Vue({
 			}
 			else {
 				cutoff = cutoff + " ";
-			}
+			}*/
 			return cutoff;
 		}
 	},
 	methods: {
+		getPotentiometerValue(position) {
+			var potentiometerPosition = position !== undefined ? position : this.potentiometer.position;
+			if (this.potentiometerType == 'lin'){
+				return this.potentiometer.value * (potentiometerPosition/100) * this.potentiometer.multiplier;
+			}else if(this.potentiometerType == 'log'){
+				var logValue = potentiometerPosition > 0 ? Math.pow(this.potentiometer.value, potentiometerPosition/100) : 0;
+				return logValue * this.potentiometer.multiplier;
+			}
+		},
 		getSuffixValue(value){
 			if (value > 999999){
 				return Math.round(value / 1000000) + " M";
 			}
 			else if (value > 999){
-				return Math.round(value / 1000) + " K";
+				return Math.round(value)/ 1000 + " K";
 			}
 			else {
 				return Math.round(value);

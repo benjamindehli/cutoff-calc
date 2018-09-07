@@ -7,55 +7,58 @@
 </head>
 <body>
 	<div id="app">
-		<div class="flex">
-		<div>
-			<p>Resistor</p>
-			<div>
-				<input type="radio" id="resistorTypeFixed" v-model="resistorType" name="resistorType" value="fixed">
-				<label for="resistorTypeFixed">Fixed</label>
-			</div>
-			<div>
-				<input type="radio" id="resistorTypePotentiometer" v-model="resistorType" name="resistorType" value="potentiometer">
-				<label for="resistorTypePotentiometer">Potentiometer</label>
-			</div>
-			<div>
-				<label for="resistor">Value:</label>
-				<input id="resistor" type="number" v-model="resistor.value"/>
-				<select v-model:number="resistor.multiplier">
-					<option v-for="multiplier in multipliers" v-bind:value="multiplier.value">{{ multiplier.name }}Ω</option>
-				</select>
-			</div>
-			
+		<!--<nav>
+			<ul>
+				<li>LP-filter</li>
+				<li>HP-filter</li>
+			</ul>
+		</nav>-->
+		<div class="container">
 
-			<div v-if="resistorType == 'potentiometer'">
-				<div>
-					<input type="radio" id="potentiometerTypeLinear" v-model="potentiometerType" name="potentiometerType" value="lin">
-					<label for="potentiometerTypeLinear">Linear</label>
+			<div class="boxes">
+				<div class="offsetResistor">
+					<label for="offsetResistor">Offset resistor:</label>
+					<div class="flex">
+						<input id="offsetResistor" type="number" v-model="offsetResistor.value"/>
+						<select v-model:number="offsetResistor.multiplier">
+							<option v-for="multiplier in multipliers" v-bind:value="multiplier.value">{{ multiplier.name }}Ω</option>
+						</select>
+					</div>
 				</div>
-				<div>
-					<input type="radio" id="potentiometerTypeLogarithmic" v-model="potentiometerType" name="potentiometerType" value="log">
-					<label for="potentiometerTypeLogarithmic">Logarithmic</label>
+				<div class="potentiometer">
+					<label for="potentiometer">Potentiometer:</label>
+					<div class="flex">
+						<input id="potentiometer" type="number" v-model="potentiometer.value"/>
+						<select v-model:number="potentiometer.multiplier">
+							<option v-for="multiplier in multipliers" v-bind:value="multiplier.value">{{ multiplier.name }}Ω</option>
+						</select>
+						<select v-model="potentiometerType">
+							<option value="lin">Linear</option>
+							<option value="log">Logarithmic</option>
+						</select>
+					</div>
 				</div>
-
-				<input id="potentiometer" type="range" min="0" max="100" v-model="potentiometer.position"/>
-				{{ getSuffixValue(resistorValue) }}Ω
+				<div class="capacitor">
+					<label for="capacitor">Capacitor:</label>
+					<div class="flex">
+						<input id="capacitor" type="number" v-model="capacitor.value"/>
+						<select v-model:number="capacitor.multiplier">
+							<option v-for="multiplier in multipliers" v-bind:value="multiplier.value">{{ multiplier.name }}F</option>
+						</select>
+					</div>
+				</div>
 			</div>
-			
+			<div class="result">
+				<div class="flex">
+					<div><span>Minimum: </span>{{ getSuffixValue(cutoff.maximum) }}Hz</div>
+					<div><span>Current: </span>{{ getSuffixValue(cutoff.current) }}Hz</div>
+					<div><span>Maximum: </span>{{ getSuffixValue(cutoff.minimum) }}Hz</div>
+				</div>
+				<input id="potentiometer" type="range" min="0" max="100" v-model="potentiometer.position" class="reversed" />
+				<!--{{ getSuffixValue(potentiometerValue) }}Ω-->
+			</div>
 		</div>
 
-
-		<div>
-			<p>Capacitor</p>
-			<label for="capacitor">Value:</label>
-			<input id="capacitor" type="number" v-model="capacitor.value"/>
-			<select v-model:number="capacitor.multiplier">
-				<option v-for="multiplier in multipliers" v-bind:value="multiplier.value">{{ multiplier.name }}F</option>
-			</select>
-		</div>
-	</div>
-		<div class="result">
-			<span>{{ cutoff }}Hz</span>
-		</div>
 
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
